@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController; //<---- Import del controller Dashboard
+use App\Http\Controllers\Admin\ProjectController; //<---- Import del controller Project
 
 
 /*
@@ -31,7 +32,7 @@ Route::middleware(['auth'])
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
     //Admin Project CRUD
-    Route::resource('posts', ProjectController::class);
+    Route::resource('projects', ProjectController::class);
 
 });
 
