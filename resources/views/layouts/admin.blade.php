@@ -46,13 +46,13 @@
                             <h5 class="text-white">Project</h5>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white text-capitalize" href="{{ route('admin.projects.index') }}">
+                                <a class="nav-link text-white text-capitalize {{ Route::currentRouteName() == 'admin.projects.index' ? 'bg-secondary' : '' }}" href="{{ route('admin.projects.index') }}">
                                     <i class="fa-solid fa-list-alt fa-lg fa-fw"></i> Lista projects
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white text-capitalize" href="{{ route('admin.projects.create') }}">
+                                <a class="nav-link text-white text-capitalize {{ Route::currentRouteName() == 'admin.projects.create' ? 'bg-secondary' : '' }}" href="{{ route('admin.projects.create') }}">
                                     <i class="fa-solid fa-plus   fa-lg fa-fw"></i> Nuovo project
                                 </a>
                             </li>

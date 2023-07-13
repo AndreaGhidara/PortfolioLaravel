@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+
+            $table->string('title',60)->unique();
+            $table->text('description')->nullable();
+            $table->text('imgPath')->nullable();
+            $table->string('artist',50)->nullable();
+
             $table->timestamps();
         });
     }
