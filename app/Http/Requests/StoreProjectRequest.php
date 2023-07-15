@@ -25,9 +25,11 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             "title" => "required|min:3|max:50",
-            "description" => "nullable|min:5|max:50",
-            "imgPath" => "nullable|min:5",
+            "description" => "nullable|min:5",
+            "imgPath" => "nullable|image|max:1024",
             "artist" => "required|min:3|max:30",
+            "language_id" => "nullable|exists:languages,id",
+            "technologies" => "nullable|exists:technologies,id"
         ];
     }
 

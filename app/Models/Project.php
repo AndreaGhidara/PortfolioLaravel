@@ -13,6 +13,18 @@ class Project extends Model
         "title",
         "description",
         "imgPath",
-        "artist"
+        "artist",
+        "language_id"
     ];
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class);
+    }
+
 }

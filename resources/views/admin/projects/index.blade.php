@@ -9,8 +9,7 @@
                         <section class="mx-auto my-5" style="max-width: 20rem;">
                             <div class="card">
                                 <div class="hover-overlay ripple imgContainerCard" data-mdb-ripple-color="light">
-                                    <img src="{{$project->imgPath}}"
-                                        class="img-fluid" />
+                                    <img src="{{ asset("/storage//" . $project->imgPath) }}" class="img-fluid" />
                                     <a href="#!">
                                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                                     </a>

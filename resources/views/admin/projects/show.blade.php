@@ -8,7 +8,7 @@
                     <section class="mx-auto my-5" style="max-width: 20rem;">
                         <div class="card">
                             <div class="hover-overlay ripple imgContainerCard" data-mdb-ripple-color="light">
-                                <img src="{{ $project->imgPath }}" class="img-fluid" />
+                                <img src="{{ asset("/storage//" . $project->imgPath) }}" class="img-fluid" />
                                 <a href="#!">
                                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                                 </a>
@@ -18,6 +18,20 @@
                                 <p class="card-text">
                                     {{ $project->description }}
                                 </p>
+                                <hr class="my-4" />
+                                <div>
+                                    {{$project->language->name ?? "no language"}}
+                                </div>
+                                <hr class="my-4" />
+                                <div>
+                                    @if (count($project->technologies) > 0)
+                                        @foreach ($project->technologies as $technology)
+                                            <p>{{$technology->name ?? "no technology"}}</p>
+                                        @endforeach
+                                    @else
+                                        <p>no tech</p>
+                                    @endif
+                                </div>
                                 <hr class="my-4" />
                                 <div class="d-flex justify-content-between">
                                     <form method="post" action="{{route("admin.projects.destroy", $project->id)}}">

@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Language;
+use App\Models\Technology;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -29,7 +32,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $languages = Language::all();
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('languages','technologies'));
     }
 
     /**
@@ -40,11 +45,28 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        //dump($request);
         $data = $request->validated();
+
+        
+        //dump($data);
+        if($request->hasFile("imgPath")) {
+
+            //dato dalla request, non validato
+            // $img_path = $request->file("image")->store("uploads");
+            $img_path = Storage::put("uploads", $data['imgPath']);
+
+            // $img_path = $data["image"]->store("uploads");
+
+            $data['imgPath'] = $img_path;
+        }
 
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
+        //dd($data);
+        $newProject->technologies()->attach( $data["technologies"] );
+
 
         return to_route('admin.projects.show', $newProject);
     }
@@ -70,7 +92,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact("project") );
+        $languages = Language::all();
+        $technologies = Technology::all();
+        
+        return view('admin.projects.edit', compact("project", "languages", "technologies") );
     }
 
     /**
@@ -82,11 +107,14 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        // $newProject = new Project();
-        // $newProject->fill($data);
-        // $newProject->save();
+        $data = $request->validated();
+        
+        $project->fill($data);
+        $project->save();
 
-        // return to_route('admin.projects.show', $newProject);
+        $project->technologies()->sync( $data['technologies'] );
+
+        return to_route('admin.projects.show', $project);
     }
 
     /**

@@ -21,8 +21,8 @@ class ProjectSeeder extends Seeder
             $newProject = new Project();
             $newProject->title = $project['title'];
             $newProject->description = $project['description'];
-            $newProject->imgPath = $project['imgPath'];
             $newProject->artist = $project['artist'];
+            $newProject->imgPath = '/uploads/placeholder.avif';
             $newProject->save();
         }
     }
